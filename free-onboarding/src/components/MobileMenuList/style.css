@@ -1,0 +1,40 @@
+.MobileMenuListWrap {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    box-sizing: border-box;
+    padding: 1.5em 1.5em;
+}
+
+.MobileMenuList {
+    height: 37em;
+    width: 100%;
+}
+
+.MobileMenuList > header {
+    height: 4em;
+    width: 100%;
+    background-color: white;
+}
+
+.MobileMenuList > header > .logo {
+    display:inline-block;
+    height: 2em;
+    width: 5em;
+    background-size: cover;
+    background-position: center;
+    transform: translate(-10px, 0);
+}
+
+.MobileMenuList > section > p {
+    font-size: 1.3em;
+}
+
+.MobileMenuList .divider {
+    width: 100%;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    margin: 1.5em 0;
+}

@@ -1,0 +1,26 @@
+.menu {
+    padding: 0;
+    border-collapse: collapse;
+    height: 100%;
+}
+
+.category {
+    cursor: pointer;
+    border-bottom: solid 3px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.category span {
+    margin: 0 1em;
+    font-weight: bold;
+}
+
+.beta {
+    position: absolute;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 6px;
+    transform: translate(-3.5em, -5px);
+    color: rgb(15, 124, 250);
+}
