@@ -1,67 +1,51 @@
 import './style.css';
-import api from '../../utils/apis';
+import getComments from '../../apis/getComments';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import Card from '../Card';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
 
 function App() {
 
-    const { fetchComment } = api;
     const [commentData, setCommentData] = useState([]);
     const [pageIndex, setPageIndex] = useState(1);
 
     const observerTarget = useRef();
 
-    const observerDefaultOption = {
-        root: null,
-        rootMargin: '1000px',
-        threshold: 0,
-    }
-
-    const getComment = useCallback(async() => {
+    const _onIntersect = useCallback(async() => {
         let resData;
-        try {
-            resData = await fetchComment(pageIndex, 10);
-        } catch (e) {
-            alert(e)
-            console.log(e)
+        resData = await getComments(pageIndex, 10);
+        if (resData.length) {
+            setCommentData(preState => [...preState, ...resData]);
+            setPageIndex((preState) => preState + 1);
         }
-        setCommentData(preData => [...preData, ...resData]);
-        setPageIndex((preState) => preState + 1);
     }, [pageIndex]);
+    
+    
+    const [target, setTarget] = useIntersectionObserver({
+        onIntersect: _onIntersect,
+        targetElement: observerTarget, 
+        options: {rootMargin: '500px'},
+        changeDetection: pageIndex,
+    })  // 지금은 target, setTarget이 쓸일이 없지만 확장성을 위해 선언만 하고 남겨두었습니다.  
 
-
-    useEffect(() => {
-        let observer = new IntersectionObserver((entries) => {
-            console.log(entries);
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    getComment();
-                }
-            });
-        }, observerDefaultOption);
-        observer.observe(observerTarget.current);
-
-        return () => observer && observer.disconnect();
-    }, [pageIndex])
-
-  return (
-    <div className="App">
-      <main className="comments">
-        {commentData.map((e) => {
-            return (
-                <Card
-                key={e.id}
-                commentId={e.id}
-                commentEmail={e.email}
-                commentBody={e.body}
-                />
-            )
-        })}
-        <footer style={{height: '10px'}} ref={observerTarget}/>
-      </main>
-    </div>
-  );
+    return (
+        <div className="App">
+        <main className="comments">
+            {commentData.map((e) => {
+                return (
+                    <Card
+                    key={e.id}
+                    commentId={e.id}
+                    commentEmail={e.email}
+                    commentBody={e.body}
+                    />
+                )
+            })}
+            <footer ref={observerTarget}/>
+        </main>
+        </div>
+    );
 }
 
 export default App;
