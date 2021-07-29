@@ -1,26 +1,24 @@
 import React from "react";
 import "./style.css";
-import PRODUCT_LIST from "../../utils/constants/PRODUCT_LIST";
+import BRAND_LIST from "../../utils/constants/BRAND_LIST";
 import BrandFilter from "../../components/BrandFilter";
 
 class RecentListPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedBrand: [] };
+    this.state = { selectedBrand: [], checkedState: new Array(BRAND_LIST.length).fill(false) };
     this.handleSelectedBrand = this.handleSelectedBrand.bind(this);
   }
 
-  handleSelectedBrand(index, checkedList, emptyList) {}
+  handleSelectedBrand(index, brand) {
+    const updatedCheckedState = this.state.checkedState.map((item, i) => (i === index ? !item : item));
+    console.log(updatedCheckedState);
+  }
 
   render() {
-    const brandSet = new Set();
-    PRODUCT_LIST.map(product => brandSet.add(product.brand));
-    const brandList = Array.from(brandSet);
-    const emptyList = new Array(brandList.length).fill(false);
-
     return (
       <div className="recentList-page">
-        <BrandFilter brandList={brandList} handleCheckbox={this.handleSelectedBrand} />
+        <BrandFilter brandList={BRAND_LIST} checkedState={this.state.checkedState} handleCheckbox={this.handleSelectedBrand} />
       </div>
     );
   }
