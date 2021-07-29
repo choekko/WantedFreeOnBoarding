@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-class MainPage extends React.Component {
+class Main extends React.Component {
   render() {
     return (
       <div className="main-page">
@@ -11,4 +11,4 @@ class MainPage extends React.Component {
   }
 }
 
-export default MainPage;
+export default Main;

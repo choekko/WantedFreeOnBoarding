@@ -6,21 +6,21 @@ import BrandFilter from "../../components/BrandFilter";
 class RecentListPage extends React.Component {
   constructor(props) {
     super(props);
-    this.setBrands = this.setBrands.bind(this);
+    this.state = { selectedBrand: [] };
+    this.handleSelectedBrand = this.handleSelectedBrand.bind(this);
   }
 
-  setBrands(item) {
-    console.log(item);
-  }
+  handleSelectedBrand(index, checkedList, emptyList) {}
 
   render() {
     const brandSet = new Set();
     PRODUCT_LIST.map(product => brandSet.add(product.brand));
+    const brandList = Array.from(brandSet);
+    const emptyList = new Array(brandList.length).fill(false);
 
     return (
       <div className="recentList-page">
-        <div>RecentList page {this.setBrands(brandSet)}</div>
-        <BrandFilter list={PRODUCT_LIST} />
+        <BrandFilter brandList={brandList} handleCheckbox={this.handleSelectedBrand} />
       </div>
     );
   }
