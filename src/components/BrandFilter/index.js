@@ -5,25 +5,18 @@ class BrandFilter extends Component {
   constructor(props) {
     super(props);
     this.state = { checkedBrand: new Map() };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const brand = event.target.name;
-    const isChecked = event.target.checked;
-    this.setState(prev => ({ checkedBrand: prev.checkedBrand.set(brand, isChecked) }));
   }
 
   render() {
+    const { checkedBrand, handleCheckboxChange } = this.props;
     return (
       <div>
         {BRAND_LIST.map((brand, index) => (
           <label key={index}>
-            <input type="checkbox" name={brand} checked={this.state.checkedBrand.get(brand)} onChange={this.handleChange} />
+            <input type="checkbox" name={brand} checked={checkedBrand.get(brand)} onChange={handleCheckboxChange} />
             {brand}
           </label>
         ))}
-        <div>{console.log(this.state.checkedBrand)}</div>
       </div>
     );
   }

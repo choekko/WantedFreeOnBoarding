@@ -1,24 +1,31 @@
 import React from "react";
 import "./style.css";
-import BRAND_LIST from "../../utils/constants/BRAND_LIST";
 import BrandFilter from "../../components/BrandFilter";
+import InterestFilter from "../../components/InterestFilter";
 
 class RecentListPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedBrand: [], checkedState: new Array(BRAND_LIST.length).fill(false) };
-    this.handleSelectedBrand = this.handleSelectedBrand.bind(this);
+    this.state = { checkedBrand: new Map(), isHidden: false };
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleInterestCheckboxChange = this.handleInterestCheckboxChange.bind(this);
   }
 
-  handleSelectedBrand(index, brand) {
-    const updatedCheckedState = this.state.checkedState.map((item, i) => (i === index ? !item : item));
-    console.log(updatedCheckedState);
+  handleCheckboxChange(event) {
+    const brand = event.target.name;
+    const isChecked = event.target.checked;
+    this.setState(prev => ({ checkedBrand: prev.checkedBrand.set(brand, isChecked) }));
+  }
+
+  handleInterestCheckboxChange(event) {
+    this.setState({ isHidden: event.target.checked });
   }
 
   render() {
     return (
       <div className="recentList-page">
-        <BrandFilter brandList={BRAND_LIST} checkedState={this.state.checkedState} handleCheckbox={this.handleSelectedBrand} />
+        <BrandFilter checkedBrand={this.state.checkedBrand} handleCheckboxChange={this.handleCheckboxChange} />
+        <InterestFilter handleInterestCheckboxChange={this.handleInterestCheckboxChange} />
       </div>
     );
   }
