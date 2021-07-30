@@ -33,7 +33,7 @@ class RecentListPage extends React.Component {
   }
 
   render() {
-    const brandList = PRODUCT_LIST.filter(product => [...this.state.checkedBrand].flatMap(e => (e[1] === true ? [e[0]] : [])).includes(product.brand));
+    const filteredBrandList = PRODUCT_LIST.filter(product => [...this.state.checkedBrand].flatMap(e => (e[1] === true ? [e[0]] : [])).includes(product.brand));
 
     return (
       <>
@@ -41,7 +41,7 @@ class RecentListPage extends React.Component {
         <div className="recentList-filters">
           <BrandFilter checkedBrand={this.state.checkedBrand} handleCheckboxChange={this.handleCheckboxChange} />
           <InterestFilter handleInterestCheckboxChange={this.handleInterestCheckboxChange} />
-          <RecentListView brandList={brandList} />
+          <RecentListView brandList={filteredBrandList} />
         </div>
       </>
     );
