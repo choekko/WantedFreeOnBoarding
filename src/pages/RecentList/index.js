@@ -1,9 +1,12 @@
 import React from "react";
 import "./style.css";
+
 import BrandFilter from "../../components/BrandFilter";
 import InterestFilter from "../../components/InterestFilter";
+import RecentListView from "../../components/RecentListView";
+
+import PRODUCT_LIST from "../../utils/constants/PRODUCT_LIST";
 import BRAND_LIST from "../../utils/constants/BRAND_LIST";
-import Header from "../../components/Header";
 
 class RecentListPage extends React.Component {
   constructor(props) {
@@ -30,10 +33,13 @@ class RecentListPage extends React.Component {
   }
 
   render() {
+    const brandList = PRODUCT_LIST.filter(product => [...this.state.checkedBrand].flatMap(e => (e[1] === true ? [e[0]] : [])).includes(product.brand));
+
     return (
       <div className="recentList-filters">
         <BrandFilter checkedBrand={this.state.checkedBrand} handleCheckboxChange={this.handleCheckboxChange} />
         <InterestFilter handleInterestCheckboxChange={this.handleInterestCheckboxChange} />
+        <RecentListView brandList={brandList} />
       </div>
     );
   }
