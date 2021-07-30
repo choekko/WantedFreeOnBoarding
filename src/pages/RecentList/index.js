@@ -2,11 +2,18 @@ import React from "react";
 import "./style.css";
 import BrandFilter from "../../components/BrandFilter";
 import InterestFilter from "../../components/InterestFilter";
+import BRAND_LIST from "../../utils/constants/BRAND_LIST";
 
 class RecentListPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { checkedBrand: new Map(), isHidden: false };
+    this.state = {
+      checkedBrand: BRAND_LIST.reduce((map, brand) => {
+        map.set(brand, false);
+        return map;
+      }, new Map()),
+      isHidden: false,
+    };
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleInterestCheckboxChange = this.handleInterestCheckboxChange.bind(this);
   }
@@ -26,6 +33,7 @@ class RecentListPage extends React.Component {
       <div className="recentList-page">
         <BrandFilter checkedBrand={this.state.checkedBrand} handleCheckboxChange={this.handleCheckboxChange} />
         <InterestFilter handleInterestCheckboxChange={this.handleInterestCheckboxChange} />
+        <div>{console.log(this.state.checkedBrand)}</div>
       </div>
     );
   }
