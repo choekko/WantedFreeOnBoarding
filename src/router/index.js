@@ -10,6 +10,7 @@ function UserRouter() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/recentList" exact component={RecentList} />
+          <Route path="/product/:id" exact component={Product} />
           <Route path="/product" exact component={Product} />
         </Switch>
       </Router>
