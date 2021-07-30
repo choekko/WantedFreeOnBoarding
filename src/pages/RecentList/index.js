@@ -3,6 +3,7 @@ import "./style.css";
 import BrandFilter from "../../components/BrandFilter";
 import InterestFilter from "../../components/InterestFilter";
 import BRAND_LIST from "../../utils/constants/BRAND_LIST";
+import Header from "../../components/Header";
 
 class RecentListPage extends React.Component {
   constructor(props) {
@@ -30,10 +31,9 @@ class RecentListPage extends React.Component {
 
   render() {
     return (
-      <div className="recentList-page">
+      <div className="recentList-filters">
         <BrandFilter checkedBrand={this.state.checkedBrand} handleCheckboxChange={this.handleCheckboxChange} />
         <InterestFilter handleInterestCheckboxChange={this.handleInterestCheckboxChange} />
-        <div>{console.log(this.state.checkedBrand)}</div>
       </div>
     );
   }

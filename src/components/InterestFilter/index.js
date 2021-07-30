@@ -1,4 +1,5 @@
 import { Component } from "react";
+import "./style.css";
 
 class InterestFilter extends Component {
   render() {
@@ -6,7 +7,7 @@ class InterestFilter extends Component {
     return (
       <div>
         <input type="checkbox" onChange={handleInterestCheckboxChange} />
-        관심 없는 상품 숨기기
+        <span className="interest-filter-name">관심 없는 상품 숨기기</span>
       </div>
     );
   }
